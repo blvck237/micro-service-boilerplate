@@ -9,6 +9,10 @@ class DataBaseHandler {
     return this.db;
   }
 
+  async close() {
+    return this.#client.close();
+  }
+
   async connect(url: string) {
     this.#client = new MongoClient(url);
     this.#client.on('open', () => {
