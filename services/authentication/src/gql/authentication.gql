@@ -13,6 +13,10 @@ extend type Mutation {
   login(email: String!, password: String!): User!
 }
 
+extend type Query {
+  ping: String!
+}
+
 
 input UserInput {
   email: String!

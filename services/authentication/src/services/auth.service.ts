@@ -4,7 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import { UserRepository } from '@repositories/user.repository';
 import { UserType } from '@typings/user';
 
-import { jwtConfig } from 'config/jwt';
+import { jwtConfig } from '@config/jwt';
 import { BadRequestException, ForbiddenException } from '@core/error/exceptions';
 
 export class AuthService {

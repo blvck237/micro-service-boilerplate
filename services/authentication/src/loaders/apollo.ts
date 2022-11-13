@@ -17,6 +17,9 @@ import { UserRepository } from '@repositories/user.repository';
 import { CollectionsEnum } from '@typings/db';
 
 const resolvers = {
+  Query: {
+    ping: () => 'pong',
+  },
   Mutation: {
     login,
     signUp,
@@ -26,7 +29,6 @@ const resolvers = {
 const typePaths = join(__dirname, `../gql/${process.env.SERVICE_NAME}.gql`);
 const gqlTypes = readFileSync(typePaths).toString();
 const typeDefs = gql(gqlTypes);
-console.log(typeDefs);
 export class ApolloHandler {
   server: ApolloServer;
   #port: number;
@@ -39,7 +41,7 @@ export class ApolloHandler {
     initPassportStrategies(new UserRepository(db, CollectionsEnum.USERS));
     this.server = new ApolloServer({
       schema: buildSubgraphSchema({ typeDefs, resolvers }),
-      context: ({ req }) => ({ user: JSON.parse(req.headers['user']) }),
+      context: ({ req }) => ({ user: req?.headers?.['user'] ? JSON.parse(req?.headers?.['user']) : null }),
       formatError,
       logger,
     });
