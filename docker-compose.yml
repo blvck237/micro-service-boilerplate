@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  apollo-gateway:
+    image: micro-service
+    env_file: ./gateway/.env.docker
+    container_name: ms.gateway.apollo
+    command: gateway/graphql
+    ports:
+      - 8080:8080
+    networks:
+      - ms-network
+
+  broker:
+    image: rabbitmq:3.7.7-management
+    container_name: broker
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_DEFAULT_VHOST=/
+    # volumes:
+    #   - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+    #   - ./definitions.json:/etc/rabbitmq/definitions.json
+    networks:
+      - ms-network
+
+networks:
+  ms-network:
+    driver: bridge
