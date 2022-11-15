@@ -1,6 +1,5 @@
 import { ApolloHandler } from '@loaders/apollo';
 import DataBaseHandler from '@loaders/database';
-import { ApolloServer } from 'apollo-server';
 
 describe('App', () => {
   beforeAll(async () => {
