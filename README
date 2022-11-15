@@ -1,0 +1,64 @@
+# Micro-services Boilerplate
+
+## Description
+
+This is a boilerplate for micro-services using TypeScript, Node.js, GQL, Apollo (gateway and federation), MongoDB and Docker.
+
+It is a work in progress and I will be adding more features as I go along. But the goal is to have a CLI tool that will generate a micro-service with all the necessary files and folders (Onion architecture) based on the user's input.
+
+## Structure
+
+The project is structured in the following way:
+
+    ├── src
+    │   ├── config
+    │   │   ├── index.js
+    │   │   └── mongo.js
+    │   ├── db
+    │   │   └── mongo.js
+    │   ├── graphql
+    │   │   ├── index.js
+    │   │   ├── resolvers
+    │   │   │   └── index.js
+    │   │   └── schemas
+    │   │       └── index.js
+    │   ├── index.js
+    │   ├── automation
+    │   └──
+    ├── services
+    │   └── serviceName
+    │       ├── src
+    │       │   ├── config
+    │       │   ├── core
+    │       │   ├── gql
+    │       │   ├── interfaces
+    │       │   ├── loaders
+    │       │   ├── repositories
+    │       │   ├── resolvers
+    │       │   ├── services
+    │       │   ├── test
+    │       │   ├── types
+    │       │   └── app.ts
+    │       ├── .env.development
+    │       ├── .eslintrc.json
+    │       ├── .gitignore
+    │       ├── .setupJest.js
+    │       ├── jest.config.js
+    │       ├── package.json
+    │       ├── tsconfig.json
+    │       └── yarn.lock
+    ├── .eslintrc.json
+    ├── .gitignore
+    ├── .prettierrc
+    ├── .prettierignore
+    ├── docker-compose.yml
+    ├── package.json
+    ├── plopfile.js
+    ├── supergraph-config.yaml
+    ├── README.md
+    └── yarn.lock
+
+## Installation
+
+1. Clone the repo
+2. Run `yarn` at the root of the project to install all the dependencies
