@@ -17,6 +17,7 @@
       "@interfaces/*": ["interfaces/*"],
       "@utils/*": ["utils/*"],
       "@resolvers/*": ["resolvers/*"],
+      "@generated": ["generated/graphql"],
       "@typings/*": ["types/*"],
       "@repositories/*": ["repositories/*"],
       "@services/*": ["services/*"]
