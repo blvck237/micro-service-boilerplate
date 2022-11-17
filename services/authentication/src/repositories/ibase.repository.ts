@@ -1,7 +1,7 @@
-import { Filter, Document, FindCursor, Sort, OptionalUnlessRequiredId, ObjectId, WithId, UpdateFilter, UpdateOptions } from 'mongodb';
+import { Filter, FindCursor, Sort, WithId, UpdateFilter } from 'mongodb';
 
 export interface IRepository<T> {
-  create?: (doc: OptionalUnlessRequiredId<T>) => Promise<T>;
+  create?: (doc: Omit<T, '_id'>) => Promise<T>;
   getOne?: (query: Filter<T>) => Promise<WithId<T>>;
   getMany?: (query: Filter<T>, sort: Sort) => FindCursor<WithId<T>>;
   deleteOne?: (query: Filter<T>) => Promise<boolean>;

@@ -48,6 +48,7 @@ export class AuthService {
       const token = await this.#generateAuthToken(_id, role);
       const refreshToken = await this.#generateRefreshToken(_id);
       const user = await this.#userRepository.create({
+        _id,
         email,
         password: hashedPassword,
         firstname,
