@@ -1,5 +1,5 @@
 type User {
-  _id: ID!
+  _id: ObjectId!
   email: String!
   firstname: String!
   lastname: String!
@@ -16,7 +16,6 @@ extend type Mutation {
 extend type Query {
   ping: String!
 }
-
 
 input UserInput {
   email: String!

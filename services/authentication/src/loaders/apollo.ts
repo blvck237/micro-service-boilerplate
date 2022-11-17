@@ -15,6 +15,7 @@ import { signUp } from '@resolvers/authentication/signUp';
 import { initPassportStrategies } from '@core/passport';
 import { UserRepository } from '@repositories/user.repository';
 import { CollectionsEnum } from '@typings/db';
+import { scalarResolvers, scalarTypeDefs } from '@core/scalars';
 
 const resolvers = {
   Query: {
@@ -24,11 +25,17 @@ const resolvers = {
     login,
     signUp,
   },
+  ...scalarResolvers,
 };
+
+// Convert scalarTypeDefs to documentNode
 
 const typePaths = join(__dirname, `../gql/${process.env.SERVICE_NAME}.gql`);
 const gqlTypes = readFileSync(typePaths).toString();
-const typeDefs = gql(gqlTypes);
+const typeDefs = gql`
+  ${gqlTypes}
+`;
+const scalarTypeDefsDocumentNode = gql(scalarTypeDefs.toString());
 export class ApolloHandler {
   server: ApolloServer;
   #port: number;
@@ -40,7 +47,10 @@ export class ApolloHandler {
   async start(db: Db) {
     initPassportStrategies(new UserRepository(db, CollectionsEnum.USERS));
     this.server = new ApolloServer({
-      schema: buildSubgraphSchema({ typeDefs, resolvers }),
+      schema: buildSubgraphSchema({
+        typeDefs: [scalarTypeDefsDocumentNode, typeDefs],
+        resolvers,
+      }),
       context: ({ req }) => ({ user: req?.headers?.['user'] ? JSON.parse(req?.headers?.['user']) : null }),
       formatError,
       logger,
