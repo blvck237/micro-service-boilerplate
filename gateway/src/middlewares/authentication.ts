@@ -1,25 +1,58 @@
-import { UnauthorizedException } from '@core/error/exceptions';
+import fetch from 'node-fetch';
+import * as fs from 'fs';
+import { UnauthorizedException, InternalServerException } from '@core/error/exceptions';
 
-const publicResolvers = Object.freeze(['Login', 'SignUp']);
-
-const resolverIsPublic = ({ query }) => publicResolvers.includes(query);
+const publicResolvers = Object.freeze(['login', 'signUp']);
+// Check if query contains a public resolver
+const resolverIsPublic = ({ query }) => {
+  for (const resolver of publicResolvers) {
+    if (query.includes(resolver)) {
+      return true;
+    }
+  }
+  return false;
+};
 const isIntrospectionQuery = ({ operationName }) => operationName === 'IntrospectionQuery';
-const shouldAuthenticate = (body) => !isIntrospectionQuery(body) && !resolverIsPublic(body);
 
 export const authUser = async ({ req }) => {
   const { authorization } = req.headers;
-  if (shouldAuthenticate(req.body)) {
-    if (!authorization) {
-      throw new UnauthorizedException('NO_TOKEN');
-    }
+  if (isIntrospectionQuery(req.body) || resolverIsPublic(req.body)) return { user: null };
+  if (!authorization) {
+    throw new UnauthorizedException('NO_TOKEN');
+  }
 
-    // TODO Auth user
+  const query = `
+      query GetUserFromToken {
+        getUserFromToken(token: "${authorization.split(' ')[1]}") {
+          _id
+          email
+          firstname
+          lastname
+          role
+          createdAt
+          updatedAt
+          token
+          refreshToken
+        }
+      }
+    `;
+  try {
+    const response = await fetch(`${process.env.AUTH_SERVICE_URL}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query }),
+    });
+    if (!response.ok) {
+      throw new UnauthorizedException('UNAUTHORIZED');
+    }
+    const result = await response.json();
+    if (result.errors) {
+      throw new UnauthorizedException('UNAUTHORIZED');
+    }
     return {
-      user: {
-        _id: 1,
-        name: 'John Doe',
-        email: 'john.doe@gmail.com',
-      },
+      user: result.data.getUserFromToken,
     };
+  } catch (error) {
+    throw new InternalServerException(error);
   }
 };

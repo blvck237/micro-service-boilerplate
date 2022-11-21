@@ -1,7 +1,4 @@
-schema
-  @core(feature: "https://specs.apollo.dev/core/v0.2"),
-  @core(feature: "https://specs.apollo.dev/join/v0.1", for: EXECUTION)
-{
+schema @core(feature: "https://specs.apollo.dev/core/v0.2") @core(feature: "https://specs.apollo.dev/join/v0.1", for: EXECUTION) {
   query: Query
   mutation: Mutation
 }
@@ -30,6 +27,8 @@ type Post {
 }
 
 type Query {
+  getUserFromToken(token: String!): User @join__field(graph: AUTHENTICATION)
+  ping: String! @join__field(graph: AUTHENTICATION)
   posts: [Post!]! @join__field(graph: FORUM)
 }
 
@@ -39,6 +38,8 @@ type User {
   email: String!
   firstname: String!
   lastname: String!
+  refreshToken: String
+  role: UserRole!
   token: String
   updatedAt: Float!
 }
@@ -48,7 +49,12 @@ input UserInput {
   firstname: String!
   lastname: String!
   password: String!
-  role: String!
+  role: UserRole!
+}
+
+enum UserRole {
+  admin
+  user
 }
 
 enum core__Purpose {
@@ -66,6 +72,6 @@ enum core__Purpose {
 scalar join__FieldSet
 
 enum join__Graph {
-  AUTHENTICATION @join__graph(name: "authentication" url: "http://localhost:4002")
-  FORUM @join__graph(name: "forum" url: "http://localhost:4005")
+  AUTHENTICATION @join__graph(name: "authentication", url: "http://localhost:4002")
+  FORUM @join__graph(name: "forum", url: "http://localhost:4005")
 }

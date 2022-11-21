@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "env $(cat .env.development | xargs) nodemon",
-    "supergraph:compose": "rover supergraph compose --config ../supergraph-config.yaml > ./supergraph.gql"
+    "supergraph:compose": "rover supergraph compose --config supergraph-config.yaml > supergraph.gql"
   },
   "dependencies": {
     "@apollo/gateway": "^2.1.4",
+    "apollo-server": "^3.11.1",
     "graphql-middleware": "^6.1.33",
     "nodemon": "^2.0.20",
     "tsconfig-paths": "^4.1.0",
