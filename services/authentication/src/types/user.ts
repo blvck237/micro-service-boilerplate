@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb';
 export type UserType = {
   _id: ObjectId;
   email: string;
-  role: string;
+  role: UserRole;
   password: string;
   firstname: string;
   lastname: string;
@@ -12,3 +12,8 @@ export type UserType = {
   tokens: string[];
   refreshToken: string;
 };
+
+export enum UserRole {
+  ADMIN = 'admin',
+  USER = 'user',
+}

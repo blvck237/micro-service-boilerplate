@@ -28,11 +28,11 @@ class UnauthorizedException extends ApolloError {
 }
 
 class InternalServerException {
-  constructor(message: GraphQLError | string) {
-    if (message instanceof GraphQLError) {
-      throw message;
+  constructor(message: ApolloError | string) {
+    if (typeof message === 'string') {
+      throw new ApolloError(message, ErrorCodes.INTERNAL);
     }
-    throw new ApolloError(message, ErrorCodes.INTERNAL);
+    throw message;
   }
 }
 

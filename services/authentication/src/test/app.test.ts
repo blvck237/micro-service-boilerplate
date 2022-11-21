@@ -1,13 +1,16 @@
 import { ApolloHandler } from '@loaders/apollo';
 import DataBaseHandler from '@loaders/database';
+import { ApolloServer } from 'apollo-server';
 
 describe('App', () => {
+  let server: ApolloServer;
   beforeAll(async () => {
     await DataBaseHandler.connect(process.env.DB_URL);
   });
 
   afterAll(async () => {
     await DataBaseHandler.close();
+    server?.stop();
   });
 
   describe('Database handler', () => {
@@ -24,6 +27,7 @@ describe('App', () => {
       const result = await apolloHandler.server.executeOperation({
         query: 'query { ping }',
       });
+      ({ server } = apolloHandler);
       expect(result.data.ping).toBe('pong');
     });
   });

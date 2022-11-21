@@ -1,20 +1,23 @@
 type User {
-  _id: ObjectId!
+  _id: ID!
   email: String!
   firstname: String!
   lastname: String!
   createdAt: Float!
   updatedAt: Float!
+  role: UserRole!
   token: String
+  refreshToken: String
 }
 
-extend type Mutation {
+type Mutation {
   signUp(user: UserInput): User!
   login(email: String!, password: String!): User!
 }
 
 extend type Query {
   ping: String!
+  getUserFromToken(token: String!): User
 }
 
 input UserInput {
@@ -22,5 +25,10 @@ input UserInput {
   password: String!
   firstname: String!
   lastname: String!
-  role: String!
+  role: UserRole!
+}
+
+enum UserRole {
+  admin
+  user
 }

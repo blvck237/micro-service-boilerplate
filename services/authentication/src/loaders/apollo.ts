@@ -1,4 +1,4 @@
-import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServer, gql } from 'apollo-server-express';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { Db } from 'mongodb';
@@ -16,10 +16,12 @@ import { initPassportStrategies } from '@core/passport';
 import { UserRepository } from '@repositories/user.repository';
 import { CollectionsEnum } from '@typings/db';
 import { scalarResolvers, scalarTypeDefs } from '@core/scalars';
+import { getUserFromToken } from '@resolvers/authentication/getUserFromToken';
 
 const resolvers = {
   Query: {
     ping: () => 'pong',
+    getUserFromToken,
   },
   Mutation: {
     login,
@@ -57,7 +59,9 @@ export class ApolloHandler {
     });
     const app = express();
     app.use(passport.initialize());
-    const { url } = await this.server.listen({ port: this.#port });
-    logger.info(`✅ Apollo server started: ${url}`);
+    await this.server.start();
+    this.server.applyMiddleware({ app, path: '/' });
+    app.listen({ port: this.#port });
+    logger.info(`✅ Apollo server started: ${this.#port}`);
   }
 }

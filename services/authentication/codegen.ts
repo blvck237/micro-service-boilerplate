@@ -11,6 +11,10 @@ const config: CodegenConfig = {
       plugins: ['introspection'],
     },
   },
+  // convert enums to union types
+  config: {
+    enumsAsTypes: true,
+  },
 };
 
 export default config;

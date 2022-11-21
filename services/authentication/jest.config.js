@@ -17,6 +17,8 @@ module.exports = {
     '^@typings/(.*)': '<rootDir>/src/types/$1',
     '^@repositories/(.*)': '<rootDir>/src/repositories/$1',
     '^@services/(.*)': '<rootDir>/src/services/$1',
+    '^@factories/(.*)': '<rootDir>/src/factories/$1',
   },
   testTimeout: 10000,
+  bail: true,
 };

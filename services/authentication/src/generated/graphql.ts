@@ -35,16 +35,23 @@ export type MutationSignUpArgs = {
 export type Query = {
   __typename?: 'Query';
   _service: _Service;
+  getUserFromToken?: Maybe<User>;
   ping: Scalars['String'];
+};
+
+export type QueryGetUserFromTokenArgs = {
+  token: Scalars['String'];
 };
 
 export type User = {
   __typename?: 'User';
-  _id: Scalars['ObjectId'];
+  _id: Scalars['ID'];
   createdAt: Scalars['Float'];
   email: Scalars['String'];
   firstname: Scalars['String'];
   lastname: Scalars['String'];
+  refreshToken?: Maybe<Scalars['String']>;
+  role: UserRole;
   token?: Maybe<Scalars['String']>;
   updatedAt: Scalars['Float'];
 };
@@ -54,8 +61,10 @@ export type UserInput = {
   firstname: Scalars['String'];
   lastname: Scalars['String'];
   password: Scalars['String'];
-  role: Scalars['String'];
+  role: UserRole;
 };
+
+export type UserRole = 'admin' | 'user';
 
 export type _Service = {
   __typename?: '_Service';
@@ -125,8 +134,10 @@ export type ResolversTypes = {
   ObjectId: ResolverTypeWrapper<Scalars['ObjectId']>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   UserInput: UserInput;
+  UserRole: UserRole;
   _Service: ResolverTypeWrapper<_Service>;
   AdditionalEntityFields: AdditionalEntityFields;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -139,6 +150,7 @@ export type ResolversParentTypes = {
   ObjectId: Scalars['ObjectId'];
   Query: {};
   User: User;
+  ID: Scalars['ID'];
   Float: Scalars['Float'];
   UserInput: UserInput;
   _Service: _Service;
@@ -230,15 +242,18 @@ export interface ObjectIdScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _service?: Resolver<ResolversTypes['_Service'], ParentType, ContextType>;
+  getUserFromToken?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserFromTokenArgs, 'token'>>;
   ping?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  _id?: Resolver<ResolversTypes['ObjectId'], ParentType, ContextType>;
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   firstname?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastname?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  refreshToken?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  role?: Resolver<ResolversTypes['UserRole'], ParentType, ContextType>;
   token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

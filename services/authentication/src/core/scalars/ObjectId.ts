@@ -31,6 +31,8 @@ const resolverObjectId = {
     parseLiteral(ast) {
       validateString(ast);
       // Convert to objectID
+      console.log('ast.value', ast);
+      // @ts-ignore
       return new ObjectId(validateObjectId(ast.value));
     },
   }),

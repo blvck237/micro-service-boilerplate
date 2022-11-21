@@ -1,3 +1,3 @@
 export enum CollectionsEnum {
-  USERS = 'users-db',
+  USERS = 'users',
 }

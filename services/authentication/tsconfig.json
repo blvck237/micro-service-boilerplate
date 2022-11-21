@@ -20,7 +20,8 @@
       "@generated": ["generated/graphql"],
       "@typings/*": ["types/*"],
       "@repositories/*": ["repositories/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "@factories/*": ["factories/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],

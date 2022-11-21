@@ -1,4 +1,4 @@
-import { Collection, Db, ObjectId, OptionalUnlessRequiredId, Filter, WithId, FindCursor, UpdateOptions, UpdateFilter } from 'mongodb';
+import { Collection, Db, OptionalUnlessRequiredId, Filter, WithId, FindCursor, UpdateOptions, UpdateFilter } from 'mongodb';
 import { IRepository } from './ibase.repository';
 
 export abstract class BaseRepository<T> implements IRepository<T> {
@@ -15,8 +15,8 @@ export abstract class BaseRepository<T> implements IRepository<T> {
     return result as T;
   }
 
-  getOne = async (filter: Filter<T>): Promise<WithId<T>> => {
-    const document = await this.collection.findOne(filter);
+  getOne = async (filter: Filter<T>, projection = {}): Promise<WithId<T>> => {
+    const document = await this.collection.findOne(filter, { projection });
     return document as WithId<T>;
   };
 
