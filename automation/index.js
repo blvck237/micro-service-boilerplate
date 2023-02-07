@@ -13,6 +13,9 @@ async function serviceGeneration(data, resolve, reject) {
       reject(err);
     } else {
       try {
+        // Docker env file
+        // TODO: add ts config generation
+        // TODO: add to docker-compose: Service + Database
         await Promise.all([generatePackages(serviceFolderPath, data, resolve, reject)]);
         resolve();
       } catch (error) {

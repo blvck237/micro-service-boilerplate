@@ -28,8 +28,14 @@ class UnauthorizedException extends ApolloError {
 }
 
 class InternalServerException {
-  constructor(message: GraphQLError | string) {
-    if (message instanceof GraphQLError) {
+  constructor(message: GraphQLError | BadRequestException | UnauthorizedException | AlreadyExistException | ForbiddenException | string) {
+    if (
+      message instanceof GraphQLError ||
+      message instanceof BadRequestException ||
+      message instanceof UnauthorizedException ||
+      message instanceof AlreadyExistException ||
+      message instanceof ForbiddenException
+    ) {
       throw message;
     }
     throw new ApolloError(message, ErrorCodes.INTERNAL);

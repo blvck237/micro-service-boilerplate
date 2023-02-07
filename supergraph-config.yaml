@@ -1,9 +1,0 @@
-subgraphs:
-  authentication:
-    routing_url: http://localhost:4002
-    schema:
-      file: services/authentication/src/gql/authentication.gql
-  forum:
-    routing_url: http://localhost:4005
-    schema:
-      file: services/forum/src/gql/forum.gql

@@ -1,0 +1,16 @@
+{
+  "name": "@service/twitter",
+  "version": "1.0.0",
+  "main": "dist/types/app.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "jest": "27.0.6",
+    "mongodb": "4.11.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}

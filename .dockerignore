@@ -1,0 +1,14 @@
+# compiled output
+.vscode
+/node_modules
+
+# code formatter
+.eslintrc
+.eslintignore
+.editorconfig
+.husky/
+.lintstagedrc.json
+.prettierrc
+
+# test
+jest.config.js

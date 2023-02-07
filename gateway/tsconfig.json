@@ -7,18 +7,23 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "importHelpers": true,
+    "esModuleInterop": true,
     "baseUrl": "./src",
+    "outDir": "./build",
     "paths": {
       "@core/*": ["core/*"],
+      "@config/*": ["config/*"],
       "@gql/*": ["gql/*"],
       "@loaders/*": ["loaders/*"],
       "@middlewares/*": ["middlewares/*"],
       "@interfaces/*": ["interfaces/*"],
       "@utils/*": ["utils/*"],
-      "@resolvers": ["resolvers/*"],
+      "@resolvers/*": ["resolvers/*"],
+      "@generated": ["generated/graphql"],
       "@typings/*": ["types/*"],
       "@repositories/*": ["repositories/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "@factories/*": ["factories/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],

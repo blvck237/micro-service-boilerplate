@@ -8,6 +8,7 @@
     "emitDecoratorMetadata": true,
     "importHelpers": true,
     "baseUrl": "./src",
+    "outDir": "./build",
     "paths": {
       "@core/*": ["core/*"],
       "@config/*": ["config/*"],

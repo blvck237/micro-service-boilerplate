@@ -4,25 +4,26 @@
 
 This is a boilerplate for micro-services using TypeScript, Node.js, GQL, Apollo (gateway and federation), MongoDB and Docker.
 
-It is a work in progress and I will be adding more features as I go along. But the goal is to have a CLI tool that will generate a micro-service with all the necessary files and folders (Onion architecture) based on the user's input.
+It is a work in progress and I will be adding more features as I go along. But the goal is to have a CLI tool that will generate a micro-service with all the necessary files and folders (Onion architecture - DDD) based on the user's input.
 
 ## Structure
 
 The project is structured in the following way:
 
+
     ├── src
     │   ├── config
-    │   │   ├── index.js
+    │   │   ├── app.ts
     │   │   └── mongo.js
     │   ├── db
     │   │   └── mongo.js
     │   ├── graphql
-    │   │   ├── index.js
+    │   │   ├── app.ts
     │   │   ├── resolvers
-    │   │   │   └── index.js
+    │   │   │   └── app.ts
     │   │   └── schemas
-    │   │       └── index.js
-    │   ├── index.js
+    │   │       └── app.ts
+    │   ├── app.ts
     │   ├── automation
     │   └──
     ├── services
@@ -58,7 +59,10 @@ The project is structured in the following way:
     ├── README.md
     └── yarn.lock
 
+By default, the project has a `gateway` folder which contains the gateway service. This service is responsible for aggregating all the micro-services and exposing them as a single GraphQL API. It also has a `services` folder which contains the micro-services. Each micro-service has its own folder and its structure is based on the Onion architecture.
+
 ## Installation
 
 1. Clone the repo
 2. Run `yarn` at the root of the project to install all the dependencies
+3. 

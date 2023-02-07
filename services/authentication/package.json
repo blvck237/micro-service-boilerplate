@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "env $(cat .env.development | xargs) nodemon",
     "test": "jest --verbose --detectOpenHandles",
-    "codegen": "env $(cat .env.development | xargs) graphql-codegen --config codegen.ts"
+    "codegen": "env $(cat .env.development | xargs) graphql-codegen --config codegen.ts",
+    "build": "tsc -p ./"
   },
   "dependencies": {
     "@apollo/federation": "^0.37.1",
@@ -45,7 +46,7 @@
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   },
-  "main": "index.js",
+  "main": "app.js",
   "license": "MIT",
   "private": true
 }

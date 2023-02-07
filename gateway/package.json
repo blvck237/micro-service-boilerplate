@@ -4,11 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "env $(cat .env.development | xargs) nodemon",
+    "build": "tsc tsconfig-paths/register",
+    "build:tsc": "tsc -b service/*/tsconfig.json gateway/*/tsconfig.json ",
+    "start": "node -r ts-node/register -r tsconfig-paths/register build/app.js",
     "supergraph:compose": "rover supergraph compose --config supergraph-config.yaml > supergraph.gql"
   },
   "dependencies": {
     "@apollo/gateway": "^2.1.4",
     "apollo-server": "^3.11.1",
+    "graphql": "^16.6.0",
     "graphql-middleware": "^6.1.33",
     "nodemon": "^2.0.20",
     "tsconfig-paths": "^4.1.0",
